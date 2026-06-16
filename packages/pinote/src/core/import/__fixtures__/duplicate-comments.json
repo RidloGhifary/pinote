@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "projectId": "fixture-project",
+  "exportedAt": "2026-06-01T00:00:00.000Z",
+  "comments": [
+    {
+      "version": 1,
+      "id": "comment_fixture_duplicate",
+      "projectId": "fixture-project",
+      "pathname": "/",
+      "url": "http://localhost/",
+      "message": "Duplicate fixture comment",
+      "text": "Duplicate fixture comment",
+      "page": {
+        "path": "/",
+        "route": "/",
+        "url": "http://localhost/",
+        "origin": "http://localhost",
+        "title": "Fixture page",
+        "capturedAt": "2026-06-01T00:00:00.000Z"
+      },
+      "target": {
+        "version": 1,
+        "id": "target_fixture_duplicate",
+        "capturedAt": "2026-06-01T00:00:00.000Z",
+        "page": {
+          "path": "/",
+          "route": "/",
+          "url": "http://localhost/",
+          "origin": "http://localhost",
+          "title": "Fixture page",
+          "capturedAt": "2026-06-01T00:00:00.000Z"
+        },
+        "selector": {
+          "primary": "[data-testid=\"target\"]",
+          "strategy": "data-attribute",
+          "candidates": [
+            {
+              "kind": "data-attribute",
+              "selector": "[data-testid=\"target\"]",
+              "score": 110,
+              "unique": true,
+              "matchCount": 1,
+              "attribute": "data-testid",
+              "value": "target",
+              "reason": "Fixture selector."
+            }
+          ],
+          "fallback": "main > button",
+          "textHint": "Target"
+        },
+        "position": {
+          "rect": {
+            "x": 10,
+            "y": 20,
+            "top": 20,
+            "right": 210,
+            "bottom": 60,
+            "left": 10,
+            "width": 200,
+            "height": 40
+          },
+          "pageRect": {
+            "x": 10,
+            "y": 20,
+            "top": 20,
+            "right": 210,
+            "bottom": 60,
+            "left": 10,
+            "width": 200,
+            "height": 40
+          },
+          "viewport": {
+            "width": 1024,
+            "height": 768
+          },
+          "scroll": {
+            "x": 0,
+            "y": 0
+          },
+          "relativeX": 0.25,
+          "relativeY": 0.75
+        },
+        "element": {
+          "tagName": "button",
+          "textSnippet": "Target",
+          "classNames": [],
+          "attributes": {
+            "data-testid": "target"
+          }
+        }
+      },
+      "createdAt": "2026-06-01T00:00:00.000Z",
+      "updatedAt": "2026-06-01T00:00:00.000Z",
+      "status": "open",
+      "replies": []
+    },
+    {
+      "version": 1,
+      "id": "comment_fixture_duplicate",
+      "projectId": "fixture-project",
+      "pathname": "/",
+      "url": "http://localhost/",
+      "message": "Duplicate fixture comment",
+      "text": "Duplicate fixture comment",
+      "page": {
+        "path": "/",
+        "route": "/",
+        "url": "http://localhost/",
+        "origin": "http://localhost",
+        "title": "Fixture page",
+        "capturedAt": "2026-06-01T00:00:00.000Z"
+      },
+      "target": {
+        "version": 1,
+        "id": "target_fixture_duplicate",
+        "capturedAt": "2026-06-01T00:00:00.000Z",
+        "page": {
+          "path": "/",
+          "route": "/",
+          "url": "http://localhost/",
+          "origin": "http://localhost",
+          "title": "Fixture page",
+          "capturedAt": "2026-06-01T00:00:00.000Z"
+        },
+        "selector": {
+          "primary": "[data-testid=\"target\"]",
+          "strategy": "data-attribute",
+          "candidates": [
+            {
+              "kind": "data-attribute",
+              "selector": "[data-testid=\"target\"]",
+              "score": 110,
+              "unique": true,
+              "matchCount": 1,
+              "attribute": "data-testid",
+              "value": "target",
+              "reason": "Fixture selector."
+            }
+          ],
+          "fallback": "main > button",
+          "textHint": "Target"
+        },
+        "position": {
+          "rect": {
+            "x": 10,
+            "y": 20,
+            "top": 20,
+            "right": 210,
+            "bottom": 60,
+            "left": 10,
+            "width": 200,
+            "height": 40
+          },
+          "pageRect": {
+            "x": 10,
+            "y": 20,
+            "top": 20,
+            "right": 210,
+            "bottom": 60,
+            "left": 10,
+            "width": 200,
+            "height": 40
+          },
+          "viewport": {
+            "width": 1024,
+            "height": 768
+          },
+          "scroll": {
+            "x": 0,
+            "y": 0
+          },
+          "relativeX": 0.25,
+          "relativeY": 0.75
+        },
+        "element": {
+          "tagName": "button",
+          "textSnippet": "Target",
+          "classNames": [],
+          "attributes": {
+            "data-testid": "target"
+          }
+        }
+      },
+      "createdAt": "2026-06-01T00:00:00.000Z",
+      "updatedAt": "2026-06-01T00:00:00.000Z",
+      "status": "open",
+      "replies": []
+    }
+  ]
+}

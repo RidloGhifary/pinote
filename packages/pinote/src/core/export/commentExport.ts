@@ -5,6 +5,7 @@ import type {
   CommentExportStatusFilter,
   LocalComment,
 } from "../types";
+import { COMMENT_IGNORE_ATTRIBUTE, PINOTE_UI_ATTRIBUTE } from "../types";
 
 export const COMMENT_EXPORT_SCHEMA_VERSION = 1;
 export const COMMENT_EXPORT_LIBRARY_NAME = "Pinote";
@@ -112,6 +113,7 @@ export function createCommentExport({
       version: COMMENT_EXPORT_LIBRARY_VERSION,
     },
     projectKey,
+    projectId: projectKey,
     exportedAt: new Date().toISOString(),
     options: resolvedOptions,
     summary: {
@@ -142,7 +144,7 @@ export function createCommentExportFilename(
     .replace(/^-+|-+$/g, "");
   const date = exportedAt.toISOString().slice(0, 10);
 
-  return `${safeProjectKey || "comments"}-${date}-comments.json`;
+  return `pinote-comments-${safeProjectKey || "default"}-${date}.json`;
 }
 
 export function downloadCommentExport(
@@ -154,17 +156,28 @@ export function downloadCommentExport(
   }
 
   const ownerWindow = document.defaultView ?? window;
+  if (
+    !ownerWindow.URL ||
+    typeof ownerWindow.URL.createObjectURL !== "function" ||
+    typeof ownerWindow.URL.revokeObjectURL !== "function"
+  ) {
+    return null;
+  }
+
   const blob = new Blob([serializeCommentExport(payload, options.space)], {
     type: "application/json",
   });
   const url = ownerWindow.URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   const filename =
-    options.filename ?? createCommentExportFilename(payload.projectKey);
+    options.filename ??
+    createCommentExportFilename(payload.projectKey, new Date(payload.exportedAt));
 
   anchor.href = url;
   anchor.download = filename;
   anchor.style.display = "none";
+  anchor.setAttribute(PINOTE_UI_ATTRIBUTE, "true");
+  anchor.setAttribute(COMMENT_IGNORE_ATTRIBUTE, "true");
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();

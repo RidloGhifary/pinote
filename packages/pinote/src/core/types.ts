@@ -1,4 +1,5 @@
 export const COMMENT_IGNORE_ATTRIBUTE = "data-rcl-ignore";
+export const PINOTE_UI_ATTRIBUTE = "data-pinote-ui";
 
 export type SelectorStrategy =
   | "data-attribute"
@@ -165,8 +166,20 @@ export interface CommentExportPayload {
     version: string;
   };
   projectKey: string;
+  projectId: string;
   exportedAt: string;
   options: Required<CommentExportOptions>;
   summary: CommentExportSummary;
   comments: LocalComment[];
+}
+
+export interface CommentImportResult {
+  total: number;
+  imported: number;
+  added: number;
+  updated: number;
+  skipped: number;
+  invalid: number;
+  comments: LocalComment[];
+  errors: string[];
 }

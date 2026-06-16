@@ -83,3 +83,23 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.pinote-control-button,
+.pinote-control-panel button {
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    background 0.16s ease,
+    opacity 0.16s ease;
+}
+
+.pinote-control-button:hover,
+.pinote-control-panel button:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.pinote-control-button:focus-visible,
+.pinote-control-panel button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 3px;
+}

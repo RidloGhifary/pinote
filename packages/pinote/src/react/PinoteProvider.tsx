@@ -5,6 +5,7 @@ import { Pinote, type PinoteOptions, type PinoteState } from "../core/engine";
 import { 
   type CommentExportOptions,
   type CommentExportPayload,
+  type CommentImportResult,
   type CommentTargetAttachmentState,
   type LocalComment,
   type CommentTarget,
@@ -23,6 +24,9 @@ interface PinoteContextValue extends Partial<PinoteState> {
   toggleCommentMode: () => void;
   exportComments: (options?: CommentExportOptions) => CommentExportPayload | undefined;
   downloadCommentsExport: (options?: CommentExportOptions) => string | null | undefined;
+  importComments: (input: unknown) => CommentImportResult | undefined;
+  mergeImportedComments: (input: unknown) => CommentImportResult | undefined;
+  importCommentsFromFile: (file: File) => Promise<CommentImportResult | undefined>;
   deleteComment: (id: string) => void;
   resolveComment: (id: string) => void;
   reopenComment: (id: string) => void;
@@ -68,6 +72,12 @@ export function PinoteProvider({
     toggleCommentMode: () => pinoteRef.current?.toggleCommentMode(),
     exportComments: (options) => pinoteRef.current?.exportComments(options),
     downloadCommentsExport: (options) => pinoteRef.current?.downloadCommentsExport(options),
+    importComments: (input) => pinoteRef.current?.importComments(input),
+    mergeImportedComments: (input) => pinoteRef.current?.mergeImportedComments(input),
+    importCommentsFromFile: (file) => {
+      const result = pinoteRef.current?.importCommentsFromFile(file);
+      return result ?? Promise.resolve(undefined);
+    },
     deleteComment: (id) => pinoteRef.current?.deleteComment(id),
     resolveComment: (id) => pinoteRef.current?.resolveComment(id),
     reopenComment: (id) => pinoteRef.current?.reopenComment(id),

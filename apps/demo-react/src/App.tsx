@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import {
   COMMENT_IGNORE_ATTRIBUTE,
   type CommentExportOptions,
@@ -14,6 +14,23 @@ const DEMO_PAGES = [
   { path: "/settings", label: "Settings" },
 ];
 
+const visuallyHiddenFileInputStyle = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: 1,
+  height: 1,
+  margin: -1,
+  padding: 0,
+  border: 0,
+  opacity: 0,
+  overflow: "hidden",
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  whiteSpace: "nowrap",
+  pointerEvents: "none",
+} satisfies CSSProperties;
+
 function navigateDemoPage(path: string) {
   window.history.pushState({}, "", path);
   window.dispatchEvent(new Event("popstate"));
@@ -25,7 +42,11 @@ function ExportControls() {
     currentPageComments,
     downloadCommentsExport,
     exportComments,
+    importCommentsFromFile,
+    importError,
+    lastImportResult,
   } = usePinote();
+  const importInputRef = useRef<HTMLInputElement | null>(null);
   const [message, setMessage] = useState("Choose an export option.");
   const openCount = comments.filter(
     (comment: LocalComment) => comment.status === "open",
@@ -50,11 +71,26 @@ function ExportControls() {
     );
   }
 
+  async function handleImport(file: File | undefined) {
+    if (!file) return;
+
+    const result = await importCommentsFromFile(file);
+    setMessage(
+      result
+        ? `Imported ${result.imported} comments (${result.added} added, ${result.updated} updated, ${result.skipped} skipped).`
+        : "Import is unavailable in this environment.",
+    );
+
+    if (importInputRef.current) {
+      importInputRef.current.value = "";
+    }
+  }
+
   return (
     <section className="exportSection" data-rcl-ignore>
       <div className="sectionHeader">
-        <h3>Export comments</h3>
-        <p>{message}</p>
+        <h3>Import and export comments</h3>
+        <p>{importError || message}</p>
       </div>
       <div className="buttonGrid">
         <button
@@ -85,7 +121,41 @@ function ExportControls() {
         >
           Export resolved ({resolvedCount})
         </button>
+        <button
+          className="secondaryButton"
+          data-pinote-ui="true"
+          data-rcl-ignore="true"
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            importInputRef.current?.click();
+          }}
+          type="button"
+        >
+          Import JSON
+        </button>
       </div>
+      <input
+        ref={importInputRef}
+        accept=".json,application/json"
+        aria-hidden="true"
+        data-pinote-ui="true"
+        data-rcl-ignore="true"
+        onChange={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          void handleImport(event.currentTarget.files?.[0]);
+        }}
+        style={visuallyHiddenFileInputStyle}
+        tabIndex={-1}
+        type="file"
+      />
+      {lastImportResult ? (
+        <p className="importSummary">
+          Last import: {lastImportResult.imported} merged,{" "}
+          {lastImportResult.skipped} skipped.
+        </p>
+      ) : null}
     </section>
   );
 }

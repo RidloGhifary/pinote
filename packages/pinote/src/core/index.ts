@@ -39,13 +39,19 @@ export {
   type DownloadCommentExportOptions,
 } from "./export/commentExport";
 export {
+  importComments,
+  mergeImportedComments,
+} from "./import/commentImport";
+export {
   COMMENT_IGNORE_ATTRIBUTE,
+  PINOTE_UI_ATTRIBUTE,
   type CommentExportOptions,
   type CommentExportPageSummary,
   type CommentExportPayload,
   type CommentExportScope,
   type CommentExportStatusFilter,
   type CommentExportSummary,
+  type CommentImportResult,
   type CommentReply,
   type CommentStatus,
   type CommentTarget,
